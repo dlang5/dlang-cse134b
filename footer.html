@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <title>Footer</title>
+      <style>
+         @import url('https://fonts.googleapis.com/css2?family=Lato:wght@700&family=Roboto+Slab&display=swap');
+
+         @keyframes rotateAnimation {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+      footer {
+         text-align: center;
+         min-height: 77px;
+         overflow: hidden;
+         display: grid;
+      }
+
+      body {
+         text-align: center;
+         min-height: 77px;
+         overflow: hidden;
+         display: grid;
+      }
+
+      .spin {
+      animation: rotateAnimation 1s infinite;
+    }
+
+    img {
+            width: 0.75em;
+            height: 0.75em;
+            vertical-align: middle;
+        }
+
+        #feedbackForm {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+   }
+
+   fieldset {
+      border-radius: 5px;
+   }
+
+   label {
+      display: block;
+      margin-bottom: 5px;
+   }
+
+   input,
+   textarea {
+      width: 100%;
+      box-sizing: border-box;
+   }
+
+   output {
+      display: block;
+      margin-top: 5px;
+      color: red; /* Style for error messages - you can customize this */
+   }
+
+   p {
+            color: var(--element-font-color);
+         }
+
+         .dark-mode p {
+            color: white;
+         }
+
+     </style>
+   </head>
+   <body style="padding: 0px">
+      <footer style="font-size: 12px; border-radius: 5px; font-family: 'Roboto Slab', Arial, sans-serif;">
+         <p>
+            <img src="smiley.png" alt="Animated Image" class="spin">&nbsp;Page designed by <strong>Dennis Lang</strong>&nbsp;<img src="smiley.png" alt="Animated Image" class="spin"><br>
+         </p>
+      </footer>
+      
+   </body>
+</html>

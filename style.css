@@ -1,0 +1,124 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@700&family=Roboto+Slab&display=swap');
+
+:root {
+  --primary-color: color(display-p3 0.0 0.0 0.1);
+  --secondary-color: #8096AC;
+}
+
+#resp-header {
+  height: 6vh;
+}
+
+body {
+  text-align: center;
+}
+
+h1, h2, h3 {
+  font-family: 'Roboto Slab', Arial, sans-serif;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+}
+
+h1 {
+  font-size: 24px;
+  padding: 2px;
+}
+
+p, aside, table {
+  text-align: center;
+  font-size: 16px;
+}
+
+nav {
+  margin-bottom: 10px; /* Adjust the margin to reduce whitespace after header */
+}
+
+main {
+  margin-top: 10px; /* Adjust the margin to reduce whitespace after header */
+}
+
+@media screen and (max-width: 768px) and (min-width: 481px) {
+  #resp-header {
+    height: 6vh;
+  }
+  
+  video, img {
+    max-width: 22dvh;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  #resp-header {
+    height: 8vh;
+  }
+
+  .resp-foot {
+    height: 41vh;
+  }
+
+  section {
+    display: grid;
+    align-items: center;
+    background-color: #f0f0f0;
+    padding: 3rem;
+    border: 1px solid #999;
+    border-radius: 5px;
+    width: 100%;
+    max-width: 75%;
+    margin: 0 auto;
+  }
+
+  p, aside, table {
+    font-size: 12px;
+  }
+
+  h3 {
+    text-align: center;
+  }
+}
+
+section {
+  display: grid;
+  align-items: center;
+  background-color: var(--secondary-color);
+  padding: 3dvh;
+  border: 1px solid #999;
+  border-radius: 5px;
+  width: 100%;
+  max-width: 75%;
+  margin: 4px auto;
+}
+
+iframe {
+  border: none; 
+  width: 100%; 
+  overflow: hidden;
+}
+
+ul, ol {
+   align-items: center;
+   display: grid;
+   grid-template-columns: repeat(2, 1fr);
+   gap: 1vh;
+   padding: 1vh;
+   margin: 0;
+ }
+
+ li {
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1vh;
+  font-family: 'Roboto Slab', serif;
+  border: 1px solid var(--secondary-color); /* Add border around list items */
+}
+
+a {
+  text-decoration: none; 
+  color: color-mix(color(display-p3 0.8 0.2 0.1), color(display-p3 0.2 0.8 0.1), 50%);
+  font-weight: bold;
+  align-items: center;
+}

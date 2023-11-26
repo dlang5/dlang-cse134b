@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Labs</title>
+      <link rel="stylesheet" href="style.css">
+      <style>
+         @import url('https://fonts.googleapis.com/css2?family=Lato:wght@700&family=Roboto+Slab&display=swap');
+
+         :root {
+            --element-bg-color: white;
+            --element-font-color: black;
+            --element-border-color: black;
+         }
+
+         body, main, footer {
+            text-align: center;
+            min-height: 77px;
+            display: grid;
+         }
+
+         body {
+            background-color: var(--element-bg-color);
+            color: var(--element-font-color);
+         }
+
+         h1, main {
+            border: 1px solid var(--element-border-color);
+            border-radius: 5px;
+            transition: border-color 0.3s;
+         }
+
+         h1, footer {
+            color: var(--element-font-color);
+         }
+
+         .toggle-button {
+            position: fixed;
+            right: 15px;
+            top: 25px;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            outline: none;
+         }
+
+         main {
+            padding: 1vh;
+         }
+
+         .spin {
+            animation: rotateAnimation 1s infinite;
+         }
+      </style>
+   </head>
+   <body>
+      <button class="toggle-button" onclick="toggleBackgroundColor()">
+         <img id="toggleIcon" src="moon.svg" alt="Toggle Background Color" width="10" height="10">
+      </button>
+      <div style="overflow: hidden;" id="resp-header"><iframe style="overflow: hidden;" src="header.html"></iframe></div>
+      <h1><b>&nbsp;Dennis Lang's Portfolio Site&nbsp;</b></h1>
+      <nav>
+         <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#media">Media</a></li>
+            <li><a href="#mathml">MathML</a></li>
+            <li><a href="#data">Classes Taken</a></li>
+         </ul>
+      </nav>
+      <main>
+         <section id="media">
+            <h2>Media</h2>
+            <h3>Picture</h3>
+            <figure>
+               <img src="geisel-lego.gif" alt="Geisel Library">
+               <figcaption>This a lego Geisel used for smaller devices and answers.</figcaption>
+               <br>
+            </figure>
+            <details>
+                <summary>Q: Who was the architect who designed UCSD's Geisel Library?</summary>
+                <p>A: William Pereira designed the Library's famous brutalist exterior.</p>
+            </details>
+            <br>
+            <form>
+                <label for="answer">What year was the library built?</label>
+                <input list="answers" name="answer" id="answer">
+                <datalist id="answers">
+                    <option value="1989">
+                    <option value="1952">
+                    <option value="1970">
+                    <option value="2000">
+                </datalist>
+            </form>
+            
+         </section>
+         <section id="mathml">
+            <h2>MathML</h2>
+            <h3>Einstein's Theory of Relativity Equation</h3>
+            <math xmlns="http://www.w3.org/1998/Math/MathML">
+               <mrow>
+                  <mi>E</mi>
+                  <mo>=</mo>
+                  <mi>m</mi>
+                  <msup>
+                     <mi>c</mi>
+                     <mn>2</mn>
+                  </msup>
+               </mrow>
+            </math>
+            <p>
+               This was created with MathML, which was based on XML. MathML is better for non-Web based applications, and was originally supported only on FireFox with a very small proportion of supported answers. Only recently has
+               the language become supported on all modern browsers, with some serious limitations to this day.
+            </p>
+            <aside>Einstein's special theory of relativity states that the same laws of physics hold true in all inertial reference frames and that the speed of light is the same for all observers, even those moving with respect to one another.</aside>
+
+         </section>
+         <section id="data">
+            <h2>Classes Taken</h2>
+            <table>
+               <caption>
+                  A short overview of classes taken and skills learned.
+               </caption>
+               <br>
+               <colgroup>
+                  <col style="background-color: skyblue;">
+                  <col span="2" style="background-color: pink;">
+                  <col style="background-color: yellow;">
+               </colgroup>
+               <tr>
+                  <th>Class</th>
+                  <th>Title</th>
+                  <th>Skills</th>
+                  <th>Tools</th>
+               </tr>
+               <tr>
+                  <td>CSE 100</td>
+                  <td>Advanced Data Structures</td>
+                  <td>Programming</td>
+                  <td>C++, Java</td>
+               </tr>
+               <tr>
+                  <td>CSE 110</td>
+                  <td>Software Engineering</td>
+                  <td>Engineering Methods</td>
+                  <td>HTML, CSS, JS, Agile</td>
+               </tr>
+               <tr>
+                  <td>ECE 65</td>
+                  <td>Components & Circuits Lab</td>
+                  <td>Electrical Engineering</td>
+                  <td>Pspice, Multisim</td>
+               </tr>
+            </table>
+         </section>
+      </main>
+      <script>
+         // Check localStorage for the theme preference
+         const savedTheme = localStorage.getItem('theme');
+
+         // Apply the theme on page load
+         if (savedTheme === 'dark') {
+            setDarkMode();
+         } else {
+            setLightMode();
+         }
+
+         function toggleBackgroundColor() {
+            const root = document.documentElement;
+            const currentColor = getComputedStyle(root).getPropertyValue('--element-bg-color').trim();
+      
+            // Toggle the background color
+            if (currentColor === 'black') {
+               setLightMode();
+            } else {
+               setDarkMode();
+            }
+         }
+      
+         function setLightMode() {
+            const root = document.documentElement;
+            root.style.setProperty('--element-bg-color', 'white');
+            root.style.setProperty('--element-font-color', 'black');
+            root.style.setProperty('--element-border-color', 'black');
+            document.getElementById('toggleIcon').src = 'moon.svg';
+      
+            // Remove the 'dark-mode' class from the body
+            document.body.classList.remove('dark-mode');
+
+            // Save the theme preference to localStorage
+            localStorage.setItem('theme', 'light');
+         }
+      
+         function setDarkMode() {
+            const root = document.documentElement;
+            root.style.setProperty('--element-bg-color', 'black');
+            root.style.setProperty('--element-font-color', 'white');
+            root.style.setProperty('--element-border-color', 'white');
+            document.getElementById('toggleIcon').src = 'sun.svg';
+      
+            // Add the 'dark-mode' class to the body
+            document.body.classList.add('dark-mode');
+
+            // Save the theme preference to localStorage
+            localStorage.setItem('theme', 'dark');
+         }
+      </script>
+   </body>
+</html>

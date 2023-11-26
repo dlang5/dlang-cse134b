@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <title>Form - No JS</title>
+   <style>
+      @import url('https://fonts.googleapis.com/css2?family=Lato:wght@700&family=Roboto+Slab&display=swap');
+
+      @keyframes rotateAnimation {
+         0% {
+            transform: rotate(0deg);
+         }
+         100% {
+            transform: rotate(360deg);
+         }
+      }
+
+      :root {
+         --element-bg-color: white;
+         --element-font-color: black;
+         --element-border-color: black;
+      }
+
+      * {
+         background-color: var(--element-bg-color);
+         color: var(--element-font-color);
+         border-color: var(--element-border-color);
+      }
+
+      footer {
+         text-align: center;
+         min-height: 77px;
+         overflow: hidden;
+         display: grid;
+      }
+
+      body {
+         text-align: center;
+         min-height: 77px;
+         overflow: hidden;
+         display: grid;
+      }
+
+      .spin {
+         animation: rotateAnimation 1s infinite;
+      }
+
+      img {
+         width: 0.75em;
+         height: 0.75em;
+         vertical-align: middle;
+      }
+
+      .toggle-button {
+         position: fixed;
+         right: 10px;
+         background-color: transparent;
+         border: none;
+         cursor: pointer;
+         outline: none;
+      }
+
+      #feedbackForm {
+         display: grid;
+         grid-template-columns: 1fr;
+         gap: 10px;
+      }
+
+      fieldset {
+         border-radius: 5px;
+      }
+
+      label {
+         display: block;
+         margin-bottom: 5px;
+      }
+
+      input,
+      textarea {
+         width: 100%;
+         box-sizing: border-box;
+         border: 1px solid var(--element-border-color);
+         border-radius: 5px;
+      }
+
+      output {
+         display: block;
+         margin-top: 5px;
+         color: red;
+      }
+   </style>
+</head>
+<body style="padding: 0px">
+   <button class="toggle-button" onclick="toggleBackgroundColor()">
+      <img id="toggleIcon" src="moon.svg" alt="Toggle Icon">
+   </button>
+   <footer style="font-size: 12px; border-radius: 5px; font-family: 'Roboto Slab', Arial, sans-serif;">
+      <p>
+         <img src="smiley.png" alt="Animated Image" class="spin">&nbsp;Page designed by <strong>Dennis Lang</strong>&nbsp;<img src="smiley.png" alt="Animated Image" class="spin"><br>
+      </p>
+      <form id="feedbackForm" action="https://httpbin.org/post" method="post">
+         <fieldset style="border-radius: 5px;">
+            <legend>Feedback</legend>
+            <label for="name">
+               Name: <span style="color: red; cursor: help;" title="Required">*</span>
+            </label>
+            <input type="text" id="name" name="name" required>
+            <br>
+            <output id="nameError" for="name"></output>
+            <output id="nameInfo" for="name"></output>
+            <br>
+
+            <label for="email">Email: <span style="color: red; cursor: help;" title="Required">*</span></label>
+            <input type="email" id="email" name="email" required>
+            <br>
+            <output id="emailError" for="email"></output>
+            <output id="emailInfo" for="email"></output>
+            <br>
+
+            <label for="comments">Comments: <span style="color: red; cursor: help;" title="Required">*</span></label>
+            <textarea id="comments" name="comments" rows="5" cols="36" required pattern="[A-Za-z0-9\s.,!?']+" title="Please enter only alphanumeric characters and common punctuation."></textarea>
+            <br>
+            <output id="commentsError" for="comments"></output>
+            <output id="commentsInfo" for="comments"></output>
+            <br>
+
+            <input type="hidden" name="possible_bot" value="true">
+            <button style="font-size: 12px;" type="submit">Submit</button>
+         </fieldset>
+      </form>
+      <script>
+         const savedToggleState = localStorage.getItem('toggleState');
+   
+         if (savedToggleState === 'black') {
+            setDarkMode();
+         } else {
+            setLightMode();
+         }
+   
+         function toggleBackgroundColor() {
+            const root = document.documentElement;
+            const currentColor = getComputedStyle(root).getPropertyValue('--element-bg-color').trim();
+      
+            if (currentColor === 'black') {
+               setLightMode();
+            } else {
+               setDarkMode();
+            }
+         }
+   
+         function setLightMode() {
+            const root = document.documentElement;
+            root.style.setProperty('--element-bg-color', 'white');
+            root.style.setProperty('--element-font-color', 'black');
+            root.style.setProperty('--element-border-color', 'black');
+            localStorage.setItem('toggleState', 'white');
+            toggleIcon.src = 'moon.svg';
+         }
+   
+         function setDarkMode() {
+            const root = document.documentElement;
+            root.style.setProperty('--element-bg-color', 'black');
+            root.style.setProperty('--element-font-color', 'white');
+            root.style.setProperty('--element-border-color', 'white');
+            localStorage.setItem('toggleState', 'black');
+            toggleIcon.src = 'sun.svg';
+         }
+
+         let formErrors = [];
+
+         function submitForm() {
+  // Iterate through formErrors array
+  for (const error of formErrors) {
+    // Create a hidden input field for each error
+    const errorInput = document.createElement('input');
+    errorInput.type = 'hidden';
+    errorInput.name = 'form-errors[]'; // Use an array to handle multiple errors
+    errorInput.value = JSON.stringify(error);
+
+    // Append the hidden input to the form
+    document.getElementById('feedbackForm').appendChild(errorInput);
+  }
+
+  // Continue with form submission
+  document.getElementById('feedbackForm').submit();
+}
+
+
+
+         function validateField(inputId, errorOutputId, infoOutputId, pattern, errorMsg) {
+            const input = document.getElementById(inputId);
+            const errorOutput = document.getElementById(errorOutputId);
+            const infoOutput = document.getElementById(infoOutputId);
+
+            if (!input.checkValidity()) {
+               const errorMessage = errorMsg || input.validationMessage;
+               errorOutput.textContent = errorMessage;
+               formErrors.push({ field: inputId, error: errorMessage });
+            } else {
+               errorOutput.textContent = '';
+               formErrors = formErrors.filter(error => error.field !== inputId);
+            }
+
+            infoOutput.textContent = `${input.value.length} characters entered.`;
+
+            if (!pattern.test(input.value)) {
+               input.classList.add('flash');
+               const illegalCharMessage = errorMsg || 'Illegal character entered.';
+               errorOutput.textContent = illegalCharMessage;
+
+               if (!input.checkValidity()) {
+                  formErrors.push({ field: inputId, error: illegalCharMessage });
+               }
+
+               setTimeout(() => {
+                  errorOutput.textContent = '';
+                  input.classList.remove('flash');
+               }, 3000);
+            }
+         }
+
+         function handleCharacterCount() {
+            const commentsInput = document.getElementById('comments');
+            const commentsInfo = document.getElementById('commentsInfo');
+            const maxCharacters = 200;
+
+            const remainingCharacters = maxCharacters - commentsInput.value.length;
+            commentsInfo.textContent = `${remainingCharacters} characters remaining.`;
+
+            if (remainingCharacters < 20) {
+               commentsInfo.style.color = 'orange';
+            }
+
+            if (remainingCharacters < 10) {
+               commentsInfo.style.color = 'red';
+            }
+         }
+
+         document.getElementById('name').addEventListener('input', () => {
+            validateField('name', 'nameError', 'nameInfo', /^[A-Za-z\s]+$/, 'Please enter only letters and spaces.');
+         });
+
+         document.getElementById('email').addEventListener('input', () => {
+            validateField('email', 'emailError', 'emailInfo', /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}$/, 'Please enter a valid email address.');
+         });
+
+         document.getElementById('comments').addEventListener('input', () => {
+            validateField('comments', 'commentsError', 'commentsInfo', /^[A-Za-z0-9\s.,!?']+$/, 'Please enter only alphanumeric characters and common punctuation.');
+            handleCharacterCount();
+         });
+      </script>
+   </footer>
+</body>
+</html>

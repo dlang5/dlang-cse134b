@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="twitter:card" content="UCSD Computer Engineering Senior">
+      <meta name="twitter:title" content="Dennis Lang's Portfolio Page">
+      <meta name="twitter:description" content="Dennis Lang's Portfolio, Career Information, and Accomplishments">
+      <meta name="twitter:image" content="geisel-header">
+      <title>Dennis Lang's Portfolio Site</title>
+      <link rel="stylesheet" href="style.css">
+      <style>
+         @import url('https://fonts.googleapis.com/css2?family=Lato:wght@700&family=Roboto+Slab&display=swap');
+
+         :root {
+            --element-bg-color: white;
+            --element-font-color: black;
+            --element-border-color: black;
+         }
+
+         body, main, footer {
+            text-align: center;
+            min-height: 77px;
+            overflow: hidden;
+            display: grid;
+         }
+
+         body {
+            background-color: var(--element-bg-color);
+            color: var(--element-font-color);
+         }
+
+         h1, main {
+            border: 1px solid var(--element-border-color);
+            border-radius: 5px;
+            transition: border-color 0.3s;
+         }
+
+         h1, footer {
+            color: var(--element-font-color);
+         }
+
+         .toggle-button {
+            position: fixed;
+            right: 15px;
+            top: 25px;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            outline: none;
+         }
+
+         main {
+            padding: 1vh;
+         }
+
+         .spin {
+            animation: rotateAnimation 1s infinite;
+         }
+      </style>
+   </head>
+   <body>
+      <button class="toggle-button" onclick="toggleBackgroundColor()">
+         <img id="toggleIcon" src="moon.svg" alt="Toggle Background Color" width="10" height="10">
+      </button>
+      <div style="overflow: hidden;" id="resp-header"><iframe style="overflow: hidden;" src="header.html"></iframe></div>
+      <h1><b>&nbsp;Dennis Lang's Portfolio Site&nbsp;</b></h1>
+      <nav>
+         <ul>
+            <li><a href="form.html">Form</a></li>
+            <li><a href="labs.html"><strong>Labs</strong></a></li>
+         </ul>
+      </nav>
+      <main id="mainContent">
+         <h2>Introduction</h2>
+         <p>The purpose of my site is to showcase <em>user-centered design</em> with a barebones HTML site, with a full site 
+            plan given to explain the purpose of the site. My specific site will include my portfolio information as 
+            a senior Computer Engineering student at UCSD. The potential audience for my site are recruiting managers, 
+            other engineers, and web designers critiquing my work. My site will include a home page, a splash page, 
+            navigation, and files in order to accomplish these objectives.
+            It all started with a <code>Hello world</code>...
+         </p>
+      </main>
+      
+      <footer style="font-size: 12px; border-radius: 5px; font-family: 'Roboto Slab', Arial, sans-serif;">
+         <p>
+            <img src="smiley.png" alt="Animated Image" class="spin">&nbsp;Page designed by <strong>Dennis Lang</strong>&nbsp;<img src="smiley.png" alt="Animated Image" class="spin"><br>
+         </p>
+      </footer>
+      <script>
+         // Check localStorage for the theme preference
+         const savedTheme = localStorage.getItem('theme');
+
+         // Apply the theme on page load
+         if (savedTheme === 'dark') {
+            setDarkMode();
+         } else {
+            setLightMode();
+         }
+
+         function toggleBackgroundColor() {
+            const root = document.documentElement;
+            const currentColor = getComputedStyle(root).getPropertyValue('--element-bg-color').trim();
+      
+            // Toggle the background color
+            if (currentColor === 'black') {
+               setLightMode();
+            } else {
+               setDarkMode();
+            }
+         }
+      
+         function setLightMode() {
+            const root = document.documentElement;
+            root.style.setProperty('--element-bg-color', 'white');
+            root.style.setProperty('--element-font-color', 'black');
+            root.style.setProperty('--element-border-color', 'black');
+            document.getElementById('toggleIcon').src = 'moon.svg';
+      
+            // Remove the 'dark-mode' class from the body
+            document.body.classList.remove('dark-mode');
+
+            // Save the theme preference to localStorage
+            localStorage.setItem('theme', 'light');
+         }
+      
+         function setDarkMode() {
+            const root = document.documentElement;
+            root.style.setProperty('--element-bg-color', 'black');
+            root.style.setProperty('--element-font-color', 'white');
+            root.style.setProperty('--element-border-color', 'white');
+            document.getElementById('toggleIcon').src = 'sun.svg';
+      
+            // Add the 'dark-mode' class to the body
+            document.body.classList.add('dark-mode');
+
+            // Save the theme preference to localStorage
+            localStorage.setItem('theme', 'dark');
+         }
+      </script>
+   </body>
+</html>

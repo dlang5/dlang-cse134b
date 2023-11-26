@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <title>Form - No JS</title>
+      <style>
+         @import url('https://fonts.googleapis.com/css2?family=Lato:wght@700&family=Roboto+Slab&display=swap');
+
+         @keyframes rotateAnimation {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    :root {
+  --textarea-bg-color: var(--textarea-bg-color); /* Set the default background color */
+}
+
+* {
+  background-color: var(--textarea-bg-color);
+  /* Add other styling as needed */
+}
+
+      footer {
+         text-align: center;
+         min-height: 77px;
+         overflow: hidden;
+         display: grid;
+      }
+
+      body {
+         text-align: center;
+         min-height: 77px;
+         overflow: hidden;
+         display: grid;
+      }
+
+      .spin {
+      animation: rotateAnimation 1s infinite;
+    }
+
+    img {
+            width: 0.75em;
+            height: 0.75em;
+            vertical-align: middle;
+        }
+
+        #feedbackForm {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+   }
+
+   fieldset {
+      border-radius: 5px;
+   }
+
+   label {
+      display: block;
+      margin-bottom: 5px;
+   }
+
+   input,
+   textarea {
+      width: 100%;
+      box-sizing: border-box;
+   }
+
+   output {
+      display: block;
+      margin-top: 5px;
+      color: red; /* Style for error messages - you can customize this */
+   }
+
+     </style>
+   </head>
+   <body style="padding: 0px">
+      <button type="button" onclick="toggleBackgroundColor()">Toggle Background Color</button>
+      <footer style="font-size: 12px; border-radius: 5px; font-family: 'Roboto Slab', Arial, sans-serif;">
+         <p>
+            <img src="smiley.png" alt="Animated Image" class="spin">&nbsp;Page designed by <strong>Dennis Lang</strong>&nbsp;<img src="smiley.png" alt="Animated Image" class="spin"><br>
+         </p>
+         <form id="feedbackForm" action="https://httpbin.org/post" method="post">
+            <fieldset style="border-radius: 5px;">
+               <legend>Feedback</legend>
+               <label for="name">
+                  Name: <span style="color: red; cursor: help;" title="Required">*</span>
+               </label>
+               <input type="text" id="name" name="name" required>
+               <br>
+               <output id="nameError" for="name"></output>
+               <output id="nameInfo" for="name"></output>
+               <br>
+         
+               <label for="email">Email: <span style="color: red; cursor: help;" title="Required">*</span></label>
+               <input type="email" id="email" name="email" required>
+               <br>
+               <output id="emailError" for="email"></output>
+               <output id="emailInfo" for="email"></output>
+               <br>
+         
+               <label for="comments">Comments: <span style="color: red; cursor: help;" title="Required">*</span></label>
+               <textarea id="comments" name="comments" rows="5" cols="36" required pattern="[A-Za-z0-9\s.,!?']+" title="Please enter only alphanumeric characters and common punctuation."></textarea>
+               <br>
+               <output id="commentsError" for="comments"></output>
+               <output id="commentsInfo" for="comments"></output>
+               <br>
+         
+               <input type="hidden" name="possible_bot" value="true">
+               <button style="font-size: 12px;" type="submit">Submit</button>
+            </fieldset>
+         </form>
+         <script>function toggleBackgroundColor() {
+            const textarea = document.getElementById('comments');
+            const currentColor = getComputedStyle(textarea).getPropertyValue('--textarea-bg-color').trim();
+          
+            // Toggle the background color
+            if (currentColor === 'white') {
+              textarea.style.setProperty('--textarea-bg-color', 'black');
+            } else {
+              textarea.style.setProperty('--textarea-bg-color', 'white');
+            }
+          }
+          </script>
+      </footer>
+   </body>
+</html>

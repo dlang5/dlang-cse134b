@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <title>Header Content</title>
+      <style>
+         @import url('https://fonts.googleapis.com/css2?family=Lato:wght@700&family=Roboto+Slab&display=swap');
+
+         :root {
+            --element-font-color: black; /* Define the CSS variable for font color */
+            --element-border-color: black; /* Define the CSS variable for border color */
+         }
+
+         body {
+            text-align: center;
+            overflow: hidden;
+            margin: 0; /* Reset default margin on body */
+         }
+
+         picture {
+            display: inline-block; /* Ensure the image doesn't exceed the container */
+            width: 100%; /* Use the image's original width */
+            height: 80px; /* Allow the image to maintain its original height */
+            object-fit: cover; /* Crop to fit horizontally */
+         }
+
+         img {
+            display: inline-block; /* Ensure the image doesn't exceed the container */
+            width: 100%; /* Use the image's original width */
+            height: 80px; /* Allow the image to maintain its original height */
+            object-fit: cover; /* Crop to fit horizontally */
+         }
+
+         header {
+            margin-bottom: 10px; /* Adjust the margin to decrease whitespace after header */
+         }
+      </style>
+   </head>
+   <body>
+      <header>
+         <picture>
+            <source media="(min-width:720px)" alt="UCSD Geisel Page Header" srcset="geisel-header.jpg">
+            <img src="geisel-small.jpg" alt="UCSD Geisel Page Header Small">
+         </picture>
+      </header>
+   </body>
+</html>
