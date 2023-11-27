@@ -32,11 +32,11 @@ p, aside, table {
 }
 
 nav {
-  margin-bottom: 10px; /* Adjust the margin to reduce whitespace after header */
+  margin-bottom: 10px;
 }
 
 main {
-  margin-top: 10px; /* Adjust the margin to reduce whitespace after header */
+  margin-top: 10px;
 }
 
 @media screen and (max-width: 768px) and (min-width: 481px) {
@@ -113,7 +113,7 @@ ul, ol {
   align-items: center;
   padding: 1vh;
   font-family: 'Roboto Slab', serif;
-  border: 1px solid var(--secondary-color); /* Add border around list items */
+  border: 1px solid var(--secondary-color);
 }
 
 a {

@@ -88,10 +88,9 @@
          </p>
       </footer>
       <script>
-         // Check localStorage for the theme preference
+
          const savedTheme = localStorage.getItem('theme');
 
-         // Apply the theme on page load
          if (savedTheme === 'dark') {
             setDarkMode();
          } else {
@@ -102,7 +101,6 @@
             const root = document.documentElement;
             const currentColor = getComputedStyle(root).getPropertyValue('--element-bg-color').trim();
       
-            // Toggle the background color
             if (currentColor === 'black') {
                setLightMode();
             } else {
@@ -116,11 +114,9 @@
             root.style.setProperty('--element-font-color', 'black');
             root.style.setProperty('--element-border-color', 'black');
             document.getElementById('toggleIcon').src = 'moon.svg';
-      
-            // Remove the 'dark-mode' class from the body
+   
             document.body.classList.remove('dark-mode');
 
-            // Save the theme preference to localStorage
             localStorage.setItem('theme', 'light');
          }
       
@@ -131,10 +127,8 @@
             root.style.setProperty('--element-border-color', 'white');
             document.getElementById('toggleIcon').src = 'sun.svg';
       
-            // Add the 'dark-mode' class to the body
             document.body.classList.add('dark-mode');
 
-            // Save the theme preference to localStorage
             localStorage.setItem('theme', 'dark');
          }
       </script>
